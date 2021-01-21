@@ -1,0 +1,10 @@
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\obj\Debug\FYP FC Evaluator + UI.csprojAssemblyReference.cache
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\obj\Debug\FYP_FC_Evaluator___UI.FOLSearcherForm.resources
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\obj\Debug\FYP_FC_Evaluator___UI.Properties.Resources.resources
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\obj\Debug\FYP FC Evaluator + UI.csproj.GenerateResource.cache
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\obj\Debug\FYP FC Evaluator + UI.csproj.CoreCompileInputs.cache
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\bin\Debug\FYP FC Evaluator + UI.exe.config
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\bin\Debug\FYP FC Evaluator + UI.exe
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\bin\Debug\FYP FC Evaluator + UI.pdb
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\obj\Debug\FYP FC Evaluator + UI.exe
+C:\Users\Liam\Source\Repos\FYP FC Evaluator + UI\obj\Debug\FYP FC Evaluator + UI.pdb
