@@ -1,0 +1,8 @@
+f(a,b):=Ex,y::[S==x.a.y]*[b==a.a]
+abaaba
+
+
+f(a):=Az:Ey::([S==z.y]+[S==y.z])*[a>=z]
+
+f(a):=Ex::[a=="\"a".x]
+\"abc

@@ -1,0 +1,20 @@
+Protected characters:
+.
+"
+'
+=
+>
+<
+[
+]
++
+*
+(
+)
+:
+space
+\
+
+Do not use protected characters in variable names.
+To include a backslash in a hardcoded string, use \\
+To include a speech mark in a hardcoded string, use \"

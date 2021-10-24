@@ -1,0 +1,57 @@
+Bugs:
+
+-development of parser
+infinite loops found, iteration corrected
+
+-initial functionality of top down - evaluates w/ no frees
+
+lhs of terms 1 character too short, meant term evaluation was false. Found through scouring after noticing functions with no free vars (first tests) weren't finding solutions where they existed.
+
+more successes than expected revealed the distinction between comparisons of the sizes of strings and those of the content of strings wasn't correctly implemented. This was resolved
+
+-added frees (some refactoring to allow for this)
+
+infinite loop occurring, caused by a lack of incrementing the position in the list of subwords for the values given to frees.
+
+multiple frees don't parse correctly. Found in basic testing. resolved quickly due to decent structure and personal knowlidge of the code.
+
+absence of quantifiers causes bugs in parser.
+
+order of operation incorrect. Solved by changing parsing priority, fixing the resulting parse tree.
+
+-changed terms from strings to their own class, for development of bottom up.
+
+parser wasn't correctly modified for this, solved quickly.
+
+-added escape character to allow for searches involving strings containing speech marks
+
+infinite loop while determining which speech marks are escaped, fixed by modifying the incrementer.
+
+-changed stored lhs and rhs of a term to be an array of strings instead of a single string, to aid in string composition (required escaping)
+
+found composition wasn't working correctly, turned out to be the parser not putting the first atom of each side of a term in iff there were multiple.
+
+-changed assignments to be their own class instead of a bad usage of a short string array.
+
+-implemented bottom-up evaluator (term evaluation is exactly the same as that of the top-down)
+
+method to get free variables from a solution doesn't function when there are no solutions. Made an edge case to deal with this.
+
+wrong variables are being returned (being thought of as free) in bottom up. changed "not equal" to "equal" in method that removed constrained variables based on whether their name equals that of the variable being quantified at this level, fixed.
+
+-Implemented UI
+
+bottom up proving slow with certain queries... testing shows top-down is hugely faster than bottom up, neither use much memory, bottom-up takes about 45 seconds for a 20-character material string no matter its content, and that time scales with the length of the material string. Further testing shows the time is consistent to within a 5% margin for such strings, even when the logical operators involved are changed.
+This suggests the excessive time taken is just down to the number of free variables used, but further testing shows a lack of correlation.
+Finally, checking the values using breakpoints at various points in the code shows that S is being added to the list of free variables twice, and that one of these additions hasn't always got the same value as the material string.
+Preventing S from appearing in the bottom-up evaluator's list of free variables fixes this.
+
+found issue with bottom-up evaluator where solution comparison is giving false negatives. Replacing a .Equals comparison applied to a custom class with an explicit comparison of the values it contains fixes this.
+
+It seems the bottom-up evaluator's model for "For All" is incorrect, will have to change how it's evaluated.
+
+Lists needed "deep copying" to work effectively when the data in copies of them were to be manipulated because they operate entirely byref. This only effects one part of the code, so I used a .ConvertAll to make new objects for the new list instead of referencing the old ones.
+
+the .Distinct() linq operator doesn't operate properly on lists of custom classes without overloading .Equals and .GetHashCode, and doesn't work on lists of lists of custom classes even then. wrote my own Distinct function to handle this.
+
+Found issue with string comparators of length 3 leading to the wrong rhs string during string composition. Changed rhs substring starting index to be 1 greater than it was wherever comparators of length 3 are used.
