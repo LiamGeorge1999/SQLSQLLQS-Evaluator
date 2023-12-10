@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FYP_FC_Evaluator___UI.Properties
+namespace FYP_FC_Evaluator.Properties
 {
 
 

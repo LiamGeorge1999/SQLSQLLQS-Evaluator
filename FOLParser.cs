@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FYP_FC_Evaluator___UI
+namespace FYP_FC_Evaluator
 {
 	static class FOLParser
 	{
-		public static ParseTreeFOL_Q Parse(string input, string material)
+		public static ParseTreeQuantifierNode Parse(string input, string material)
 		{
 			string splitterString = "::";
 			int splitIndex = input.IndexOf(splitterString);
@@ -27,7 +27,7 @@ namespace FYP_FC_Evaluator___UI
 			
 			List<String> lexemes = LexExpression(rhs);
 
-			ParseTreeFOL_O expression;
+			ParseTreeOperatorNode expression;
 			if (lexemes.Count == 0)
 			{
 				expression = null;
@@ -40,24 +40,24 @@ namespace FYP_FC_Evaluator___UI
 			return ParseQuantifiers(lhs,expression);
 		}
 
-		private static ParseTreeFOL_Q ParseQuantifiers(string quantifierString, ParseTreeFOL_O expression)
+		private static ParseTreeQuantifierNode ParseQuantifiers(string quantifierString, ParseTreeOperatorNode expression)
 		{
 			
 			quantifierString = FillInQuantifiers(quantifierString);
 			string[] quantifierStrings = quantifierString.Split(':');
 			quantifierStrings=quantifierStrings.Reverse().ToArray();
-			ParseTreeFOL_Q output = new ParseTreeFOL_Q(null, null, expression);
+			ParseTreeQuantifierNode output = new ParseTreeQuantifierNode(null, null, expression);
 			if (quantifierStrings[0] != "")
 			{
 				foreach (string str in quantifierStrings)
 				{
 					if (str.First().Equals('E'))
 					{
-						output = new ParseTreeFOL_Q(FOLQuantifier.E, str.Substring(1), output);
+						output = new ParseTreeQuantifierNode(Quantifier.E, str.Substring(1), output);
 					}
 					else if (str.First().Equals('A'))
 					{
-						output = new ParseTreeFOL_Q(FOLQuantifier.A, str.Substring(1), output);
+						output = new ParseTreeQuantifierNode(Quantifier.A, str.Substring(1), output);
 					}
 					else
 					{
@@ -202,7 +202,7 @@ namespace FYP_FC_Evaluator___UI
 				};
 			int comparatorIndex=-1;
 			int comparatorLength = -1;
-			for (int i=0; i<comparators.Length; i++)
+			for (int i=0; i<comparators.Length && comparator == null; i++)
 			{
 				if (FirstUnquotedIndexOf(term, comparators[i]) != -1)
 				{
@@ -330,11 +330,11 @@ namespace FYP_FC_Evaluator___UI
 			return bodyAtoms.ToArray();
 		}
 
-		private static ParseTreeFOL_O ParseExpression(List<String> lexemes, string material)
+		private static ParseTreeOperatorNode ParseExpression(List<String> lexemes, string material)
 		{
 			if (lexemes.Count==1)
 			{
-				return new ParseTreeFOL_O(ParseTerm(lexemes[0], material));
+				return new ParseTreeOperatorNode(ParseTerm(lexemes[0], material));
 			}
 			int i = 0;
 			int bracketDepth = 0;
@@ -351,9 +351,9 @@ namespace FYP_FC_Evaluator___UI
 					case "+":
 						if (bracketDepth == 0)
 						{
-							ParseTreeFOL_O left = ParseExpression(lexemes.Take(i).ToList(), material);
-							ParseTreeFOL_O right = ParseExpression(lexemes.Skip(i + 1).ToList(), material);
-							return new ParseTreeFOL_O(FOLOperator.Disjunction, left, right);
+							ParseTreeOperatorNode left = ParseExpression(lexemes.Take(i).ToList(), material);
+							ParseTreeOperatorNode right = ParseExpression(lexemes.Skip(i + 1).ToList(), material);
+							return new ParseTreeOperatorNode(Operator.Disjunction, left, right);
 						}
 						break;
 				}
@@ -374,9 +374,9 @@ namespace FYP_FC_Evaluator___UI
 					case "*":
 						if (bracketDepth == 0)
 						{
-							ParseTreeFOL_O left = ParseExpression(lexemes.Take(i).ToList(), material);
-							ParseTreeFOL_O right = ParseExpression(lexemes.Skip(i + 1).ToList(), material);
-							return new ParseTreeFOL_O(FOLOperator.Conjunction, left, right);
+							ParseTreeOperatorNode left = ParseExpression(lexemes.Take(i).ToList(), material);
+							ParseTreeOperatorNode right = ParseExpression(lexemes.Skip(i + 1).ToList(), material);
+							return new ParseTreeOperatorNode(Operator.Conjunction, left, right);
 						}
 						break;
 				}
@@ -438,7 +438,7 @@ namespace FYP_FC_Evaluator___UI
 			}
 			catch (Exception e)
 			{
-				throw (new Exception("Badly formed query matrix. Check brackets, operators and parentheses."));
+				throw (new Exception("Badly formed query matrix. Check brackets, operators and parentheses: " + e.Message));
 			}
 		}
 

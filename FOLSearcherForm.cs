@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FYP_FC_Evaluator___UI
+namespace FYP_FC_Evaluator
 {
 	public partial class FOLSearcherForm : Form
 	{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FYP_FC_Evaluator___UI
+namespace FYP_FC_Evaluator
 {
 	static class Program
 	{

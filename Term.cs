@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FYP_FC_Evaluator___UI
+namespace FYP_FC_Evaluator
 {
 	class Term
 	{

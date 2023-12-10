@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FYP_FC_Evaluator___UI
+namespace FYP_FC_Evaluator
 {
 	class FOLExpression
 	{
-		ParseTreeFOL_Q FOQuantifiers;
-		ParseTreeFOL_O PLExpression;
+		ParseTreeQuantifierNode FOQuantifiers;
+		ParseTreeOperatorNode PLExpression;
 
-		public FOLExpression(ParseTreeFOL_Q quantifiers, ParseTreeFOL_O expression)
+		public FOLExpression(ParseTreeQuantifierNode quantifiers, ParseTreeOperatorNode expression)
 		{
 			this.FOQuantifiers = quantifiers;
 			this.PLExpression = expression;
