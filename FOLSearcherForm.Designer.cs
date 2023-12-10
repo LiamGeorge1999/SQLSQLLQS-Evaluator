@@ -1,4 +1,4 @@
-﻿namespace FYP_FC_Evaluator___UI
+﻿namespace FYP_FC_Evaluator
 {
 	partial class FOLSearcherForm
 	{

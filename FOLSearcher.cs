@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-namespace FYP_FC_Evaluator___UI
+namespace FYP_FC_Evaluator
 {
 
 	static class FOLSearcher
@@ -17,15 +17,15 @@ namespace FYP_FC_Evaluator___UI
 			string freeVarsString = query.Substring(query.IndexOf('(') + 1).Substring(0, query.IndexOf(')') - 2);
 			string[] freeVars = freeVarsString.Split(',');
 
-			ParseTreeFOL_Q parsedExpression = FOLParser.Parse(folExpression, body);
+			ParseTreeQuantifierNode parsedExpression = FOLParser.Parse(folExpression, body);
 
 			List<List<Assignment>> res;
 			if (topDownSearch)
 			{
-				res= TopDownFOLEvaluator.evaluateParsedExpression(parsedExpression, subwords.ToArray(), freeVars, body);
+				res = FOLTopDownEvaluator.evaluateParsedExpression(parsedExpression, subwords.ToArray(), freeVars, body);
 			}
 			else {
-				res= BottomUpFOLEvaluator.EvaluateParsedExpression(parsedExpression, subwords.ToArray(), freeVars, body);
+				res = FOLBottomUpEvaluator.EvaluateParsedExpression(parsedExpression, subwords.ToArray(), freeVars, body);
 			}
 			return res;
 		}
@@ -86,7 +86,7 @@ namespace FYP_FC_Evaluator___UI
 			List<List<Assignment>> distinctSols = new List<List<Assignment>>();
 			foreach (List<Assignment> sol in solutions)
 			{
-				if (!distinctSols.Any(s => BottomUpFOLEvaluator.CompareSolutions(s, sol)))
+				if (!distinctSols.Any(s => FOLBottomUpEvaluator.CompareSolutions(s, sol)))
 				{
 					distinctSols.Add(sol);
 				}
@@ -110,7 +110,7 @@ namespace FYP_FC_Evaluator___UI
 			return freeVars.ToArray();
 		}
 
-		public static string[] GetFreeVars(ParseTreeFOL_Q query)
+		public static string[] GetFreeVars(ParseTreeQuantifierNode query)
 		{
 			if(query.getExpression()!=null)
 			{
@@ -121,7 +121,7 @@ namespace FYP_FC_Evaluator___UI
 			return vars.ToArray();
 		}
 
-		public static string[] GetFreeVars(ParseTreeFOL_O expression)
+		public static string[] GetFreeVars(ParseTreeOperatorNode expression)
 		{
 			if (expression.getTerm() != null)
 			{
